@@ -376,5 +376,93 @@ namespace Movie_Theater_Manager
 
             return foundShowtime;
         }
+
+        public List<ScreeningRoom> GetScreeningRoomsFromDB()
+        {
+            ScreeningRoom screeningRoom;
+            List<ScreeningRoom> foundScreenignRoom = new List<ScreeningRoom>();
+
+            try
+            {
+                dbConnection.Open();
+
+                string sqlQuery = "SELECT * FROM screening_room;";
+
+                MySqlCommand dbCommand = new MySqlCommand(sqlQuery, dbConnection);
+
+                MySqlDataReader dataReader = dbCommand.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    screeningRoom = new ScreeningRoom();
+
+                    screeningRoom.Code = dataReader.GetString(0);
+                    screeningRoom.Capacity = dataReader.GetInt32(1);
+                    screeningRoom.Description = dataReader.GetString(2);
+
+                    foundScreenignRoom.Add(screeningRoom);
+                }
+
+                dbConnection.Close();
+            }
+            catch(MySqlException ex)
+            {
+                if (dbConnection.State.ToString() == "Open")
+                {
+                    dbConnection.Close();
+                }
+
+                Console.WriteLine(ex.Message);
+
+                log.Error(ex.Message);
+            }
+
+            return foundScreenignRoom;
+        }
+
+        public List<E_Ticket> GetE_TicketsFromDB()
+        {
+            E_Ticket e_Ticket;
+
+            List<E_Ticket> foundE_Ticket = new List<E_Ticket>();
+
+            try
+            {
+                dbConnection.Open();
+
+                string sqlQuery = "SELECT * FROM e_ticket;";
+
+                MySqlCommand dbCommand = new MySqlCommand(sqlQuery, dbConnection);
+
+                MySqlDataReader dataReader = dbCommand.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    e_Ticket = new E_Ticket();
+
+                    e_Ticket.ID = dataReader.GetInt32(0);
+                    e_Ticket.PurchaseDate = dataReader.GetDateTime(1);
+                    e_Ticket.ShowtimeID = dataReader.GetInt32(2);
+                    e_Ticket.UserAccountID = dataReader.GetInt32(3);
+
+                    foundE_Ticket.Add(e_Ticket);
+                }
+
+                dbConnection.Close();
+            }
+            catch (MySqlException ex)
+            {
+                if (dbConnection.State.ToString() == "Open")
+                {
+                    dbConnection.Close();
+                }
+
+                Console.WriteLine(ex.Message);
+
+                log.Error(ex.Message);
+            }
+
+            return foundE_Ticket;
+        }
     }
 }

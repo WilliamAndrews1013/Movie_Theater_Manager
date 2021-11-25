@@ -122,5 +122,21 @@ namespace Movie_Theater_Manager
                 }
             }
         }
+
+        private void BuyTicketButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ViewETicketButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LogoutButton_Click(object sender, EventArgs e)
+        {
+            // Closes form
+            this.Close();
+        }
     }
 }
