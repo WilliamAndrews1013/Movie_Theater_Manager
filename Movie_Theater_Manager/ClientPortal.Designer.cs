@@ -58,6 +58,7 @@
             this.logoutButton.TabIndex = 19;
             this.logoutButton.Text = "Logout";
             this.logoutButton.UseVisualStyleBackColor = false;
+            this.logoutButton.Click += new System.EventHandler(this.LogoutButton_Click);
             // 
             // viewETicketButton
             // 
@@ -69,6 +70,7 @@
             this.viewETicketButton.TabIndex = 18;
             this.viewETicketButton.Text = "View E-Ticket";
             this.viewETicketButton.UseVisualStyleBackColor = false;
+            this.viewETicketButton.Click += new System.EventHandler(this.ViewETicketButton_Click);
             // 
             // pictureBox1
             // 
@@ -124,6 +126,7 @@
             this.buyTicketButton.TabIndex = 8;
             this.buyTicketButton.Text = "Buy Ticket";
             this.buyTicketButton.UseVisualStyleBackColor = false;
+            this.buyTicketButton.Click += new System.EventHandler(this.BuyTicketButton_Click);
             // 
             // lengthDisplayLabel
             // 

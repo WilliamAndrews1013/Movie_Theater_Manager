@@ -28,24 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.addButton = new System.Windows.Forms.Button();
             this.logoutButton = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.clientListBox = new System.Windows.Forms.ListBox();
+            this.clientListView = new System.Windows.Forms.ListView();
             this.clientLabel = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.ticketsSoldByMovieListView = new System.Windows.Forms.ListView();
+            this.ticketsSoldByShowtimeListView = new System.Windows.Forms.ListView();
             this.ticketSoldMovieLabel = new System.Windows.Forms.Label();
-            this.ticketSoldMovieListBox = new System.Windows.Forms.ListBox();
             this.ticketsSoldShowtimeLabel = new System.Windows.Forms.Label();
-            this.ticketSoldShowtimeListBox = new System.Windows.Forms.ListBox();
             this.ticketsSoldLabel = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.showtimeListView = new System.Windows.Forms.ListView();
             this.showtimeAddButton = new System.Windows.Forms.Button();
             this.showtimeEditButton = new System.Windows.Forms.Button();
             this.showtimeDeleteButton = new System.Windows.Forms.Button();
             this.ticketPriceTextBox = new System.Windows.Forms.TextBox();
             this.ticketPriceLabel = new System.Windows.Forms.Label();
-            this.showtimeListBox = new System.Windows.Forms.ListBox();
             this.showtimeScreenRoomCodeIDTextBox = new System.Windows.Forms.TextBox();
             this.showtimeIDTextBox = new System.Windows.Forms.TextBox();
             this.showtimeIDLabel = new System.Windows.Forms.Label();
@@ -56,7 +55,7 @@
             this.dateTimeLabel = new System.Windows.Forms.Label();
             this.showtimeLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.screeningRoomListBox = new System.Windows.Forms.ListBox();
+            this.screeningRoomListView = new System.Windows.Forms.ListView();
             this.screeningRoomCodeTextBox = new System.Windows.Forms.TextBox();
             this.screeningRoomCodeLabel = new System.Windows.Forms.Label();
             this.capacityTextBox = new System.Windows.Forms.TextBox();
@@ -68,7 +67,7 @@
             this.addScreeningRoomButton = new System.Windows.Forms.Button();
             this.screeningRoomLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.movieListBox = new System.Windows.Forms.ListBox();
+            this.movieListView = new System.Windows.Forms.ListView();
             this.addMovieButton = new System.Windows.Forms.Button();
             this.movieIDTextBox = new System.Windows.Forms.TextBox();
             this.editMovieButton = new System.Windows.Forms.Button();
@@ -85,23 +84,14 @@
             this.lengthLabel = new System.Windows.Forms.Label();
             this.lengthTextBox = new System.Windows.Forms.TextBox();
             this.movieLabel = new System.Windows.Forms.Label();
+            this.genreListBox = new System.Windows.Forms.ListBox();
+            this.genreLabel = new System.Windows.Forms.Label();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // addButton
-            // 
-            this.addButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.addButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.addButton.Location = new System.Drawing.Point(636, 463);
-            this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(80, 41);
-            this.addButton.TabIndex = 125;
-            this.addButton.Text = "Add Manager";
-            this.addButton.UseVisualStyleBackColor = false;
             // 
             // logoutButton
             // 
@@ -117,21 +107,20 @@
             // panel5
             // 
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel5.Controls.Add(this.clientListBox);
+            this.panel5.Controls.Add(this.clientListView);
             this.panel5.Location = new System.Drawing.Point(401, 437);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(194, 155);
             this.panel5.TabIndex = 123;
             // 
-            // clientListBox
+            // clientListView
             // 
-            this.clientListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.clientListBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.clientListBox.FormattingEnabled = true;
-            this.clientListBox.Location = new System.Drawing.Point(3, 1);
-            this.clientListBox.Name = "clientListBox";
-            this.clientListBox.Size = new System.Drawing.Size(184, 147);
-            this.clientListBox.TabIndex = 0;
+            this.clientListView.HideSelection = false;
+            this.clientListView.Location = new System.Drawing.Point(3, 3);
+            this.clientListView.Name = "clientListView";
+            this.clientListView.Size = new System.Drawing.Size(182, 145);
+            this.clientListView.TabIndex = 1;
+            this.clientListView.UseCompatibleStateImageBehavior = false;
             // 
             // clientLabel
             // 
@@ -147,14 +136,32 @@
             // panel4
             // 
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel4.Controls.Add(this.ticketsSoldByMovieListView);
+            this.panel4.Controls.Add(this.ticketsSoldByShowtimeListView);
             this.panel4.Controls.Add(this.ticketSoldMovieLabel);
-            this.panel4.Controls.Add(this.ticketSoldMovieListBox);
             this.panel4.Controls.Add(this.ticketsSoldShowtimeLabel);
-            this.panel4.Controls.Add(this.ticketSoldShowtimeListBox);
             this.panel4.Location = new System.Drawing.Point(20, 320);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(333, 272);
             this.panel4.TabIndex = 121;
+            // 
+            // ticketsSoldByMovieListView
+            // 
+            this.ticketsSoldByMovieListView.HideSelection = false;
+            this.ticketsSoldByMovieListView.Location = new System.Drawing.Point(6, 157);
+            this.ticketsSoldByMovieListView.Name = "ticketsSoldByMovieListView";
+            this.ticketsSoldByMovieListView.Size = new System.Drawing.Size(318, 108);
+            this.ticketsSoldByMovieListView.TabIndex = 5;
+            this.ticketsSoldByMovieListView.UseCompatibleStateImageBehavior = false;
+            // 
+            // ticketsSoldByShowtimeListView
+            // 
+            this.ticketsSoldByShowtimeListView.HideSelection = false;
+            this.ticketsSoldByShowtimeListView.Location = new System.Drawing.Point(6, 30);
+            this.ticketsSoldByShowtimeListView.Name = "ticketsSoldByShowtimeListView";
+            this.ticketsSoldByShowtimeListView.Size = new System.Drawing.Size(318, 108);
+            this.ticketsSoldByShowtimeListView.TabIndex = 4;
+            this.ticketsSoldByShowtimeListView.UseCompatibleStateImageBehavior = false;
             // 
             // ticketSoldMovieLabel
             // 
@@ -167,16 +174,6 @@
             this.ticketSoldMovieLabel.TabIndex = 3;
             this.ticketSoldMovieLabel.Text = "By Movie";
             // 
-            // ticketSoldMovieListBox
-            // 
-            this.ticketSoldMovieListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ticketSoldMovieListBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ticketSoldMovieListBox.FormattingEnabled = true;
-            this.ticketSoldMovieListBox.Location = new System.Drawing.Point(6, 157);
-            this.ticketSoldMovieListBox.Name = "ticketSoldMovieListBox";
-            this.ticketSoldMovieListBox.Size = new System.Drawing.Size(318, 108);
-            this.ticketSoldMovieListBox.TabIndex = 2;
-            // 
             // ticketsSoldShowtimeLabel
             // 
             this.ticketsSoldShowtimeLabel.AutoSize = true;
@@ -187,16 +184,6 @@
             this.ticketsSoldShowtimeLabel.Size = new System.Drawing.Size(79, 13);
             this.ticketsSoldShowtimeLabel.TabIndex = 1;
             this.ticketsSoldShowtimeLabel.Text = "By Showtime";
-            // 
-            // ticketSoldShowtimeListBox
-            // 
-            this.ticketSoldShowtimeListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ticketSoldShowtimeListBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ticketSoldShowtimeListBox.FormattingEnabled = true;
-            this.ticketSoldShowtimeListBox.Location = new System.Drawing.Point(6, 26);
-            this.ticketSoldShowtimeListBox.Name = "ticketSoldShowtimeListBox";
-            this.ticketSoldShowtimeListBox.Size = new System.Drawing.Size(318, 108);
-            this.ticketSoldShowtimeListBox.TabIndex = 0;
             // 
             // ticketsSoldLabel
             // 
@@ -212,12 +199,12 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel3.Controls.Add(this.showtimeListView);
             this.panel3.Controls.Add(this.showtimeAddButton);
             this.panel3.Controls.Add(this.showtimeEditButton);
             this.panel3.Controls.Add(this.showtimeDeleteButton);
             this.panel3.Controls.Add(this.ticketPriceTextBox);
             this.panel3.Controls.Add(this.ticketPriceLabel);
-            this.panel3.Controls.Add(this.showtimeListBox);
             this.panel3.Controls.Add(this.showtimeScreenRoomCodeIDTextBox);
             this.panel3.Controls.Add(this.showtimeIDTextBox);
             this.panel3.Controls.Add(this.showtimeIDLabel);
@@ -230,6 +217,16 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(350, 195);
             this.panel3.TabIndex = 119;
+            // 
+            // showtimeListView
+            // 
+            this.showtimeListView.HideSelection = false;
+            this.showtimeListView.Location = new System.Drawing.Point(3, 5);
+            this.showtimeListView.Name = "showtimeListView";
+            this.showtimeListView.Size = new System.Drawing.Size(121, 173);
+            this.showtimeListView.TabIndex = 98;
+            this.showtimeListView.UseCompatibleStateImageBehavior = false;
+            this.showtimeListView.SelectedIndexChanged += new System.EventHandler(this.ShowtimeListView_SelectedIndexChanged);
             // 
             // showtimeAddButton
             // 
@@ -270,7 +267,6 @@
             // ticketPriceTextBox
             // 
             this.ticketPriceTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ticketPriceTextBox.Enabled = false;
             this.ticketPriceTextBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.ticketPriceTextBox.Location = new System.Drawing.Point(240, 115);
             this.ticketPriceTextBox.Name = "ticketPriceTextBox";
@@ -287,20 +283,9 @@
             this.ticketPriceLabel.TabIndex = 92;
             this.ticketPriceLabel.Text = "Ticket Price";
             // 
-            // showtimeListBox
-            // 
-            this.showtimeListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.showtimeListBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.showtimeListBox.FormattingEnabled = true;
-            this.showtimeListBox.Location = new System.Drawing.Point(3, 5);
-            this.showtimeListBox.Name = "showtimeListBox";
-            this.showtimeListBox.Size = new System.Drawing.Size(120, 173);
-            this.showtimeListBox.TabIndex = 80;
-            // 
             // showtimeScreenRoomCodeIDTextBox
             // 
             this.showtimeScreenRoomCodeIDTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.showtimeScreenRoomCodeIDTextBox.Enabled = false;
             this.showtimeScreenRoomCodeIDTextBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.showtimeScreenRoomCodeIDTextBox.Location = new System.Drawing.Point(249, 88);
             this.showtimeScreenRoomCodeIDTextBox.Name = "showtimeScreenRoomCodeIDTextBox";
@@ -310,7 +295,6 @@
             // showtimeIDTextBox
             // 
             this.showtimeIDTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.showtimeIDTextBox.Enabled = false;
             this.showtimeIDTextBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.showtimeIDTextBox.Location = new System.Drawing.Point(239, 5);
             this.showtimeIDTextBox.Name = "showtimeIDTextBox";
@@ -342,7 +326,6 @@
             // showtimeMovieIDTextBox
             // 
             this.showtimeMovieIDTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.showtimeMovieIDTextBox.Enabled = false;
             this.showtimeMovieIDTextBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.showtimeMovieIDTextBox.Location = new System.Drawing.Point(240, 61);
             this.showtimeMovieIDTextBox.Name = "showtimeMovieIDTextBox";
@@ -352,7 +335,6 @@
             // dateTimeTextBox
             // 
             this.dateTimeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.dateTimeTextBox.Enabled = false;
             this.dateTimeTextBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.dateTimeTextBox.Location = new System.Drawing.Point(239, 34);
             this.dateTimeTextBox.Name = "dateTimeTextBox";
@@ -395,7 +377,7 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.screeningRoomListBox);
+            this.panel2.Controls.Add(this.screeningRoomListView);
             this.panel2.Controls.Add(this.screeningRoomCodeTextBox);
             this.panel2.Controls.Add(this.screeningRoomCodeLabel);
             this.panel2.Controls.Add(this.capacityTextBox);
@@ -410,15 +392,15 @@
             this.panel2.Size = new System.Drawing.Size(325, 119);
             this.panel2.TabIndex = 117;
             // 
-            // screeningRoomListBox
+            // screeningRoomListView
             // 
-            this.screeningRoomListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.screeningRoomListBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.screeningRoomListBox.FormattingEnabled = true;
-            this.screeningRoomListBox.Location = new System.Drawing.Point(3, 3);
-            this.screeningRoomListBox.Name = "screeningRoomListBox";
-            this.screeningRoomListBox.Size = new System.Drawing.Size(120, 108);
-            this.screeningRoomListBox.TabIndex = 91;
+            this.screeningRoomListView.HideSelection = false;
+            this.screeningRoomListView.Location = new System.Drawing.Point(3, 3);
+            this.screeningRoomListView.Name = "screeningRoomListView";
+            this.screeningRoomListView.Size = new System.Drawing.Size(121, 104);
+            this.screeningRoomListView.TabIndex = 92;
+            this.screeningRoomListView.UseCompatibleStateImageBehavior = false;
+            this.screeningRoomListView.SelectedIndexChanged += new System.EventHandler(this.ScreeningRoomListView_SelectedIndexChanged);
             // 
             // screeningRoomCodeTextBox
             // 
@@ -530,7 +512,9 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.movieListBox);
+            this.panel1.Controls.Add(this.genreLabel);
+            this.panel1.Controls.Add(this.genreListBox);
+            this.panel1.Controls.Add(this.movieListView);
             this.panel1.Controls.Add(this.addMovieButton);
             this.panel1.Controls.Add(this.movieIDTextBox);
             this.panel1.Controls.Add(this.editMovieButton);
@@ -551,15 +535,15 @@
             this.panel1.Size = new System.Drawing.Size(359, 244);
             this.panel1.TabIndex = 115;
             // 
-            // movieListBox
+            // movieListView
             // 
-            this.movieListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.movieListBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.movieListBox.FormattingEnabled = true;
-            this.movieListBox.Location = new System.Drawing.Point(3, 3);
-            this.movieListBox.Name = "movieListBox";
-            this.movieListBox.Size = new System.Drawing.Size(159, 225);
-            this.movieListBox.TabIndex = 24;
+            this.movieListView.HideSelection = false;
+            this.movieListView.Location = new System.Drawing.Point(4, 3);
+            this.movieListView.Name = "movieListView";
+            this.movieListView.Size = new System.Drawing.Size(159, 225);
+            this.movieListView.TabIndex = 91;
+            this.movieListView.UseCompatibleStateImageBehavior = false;
+            this.movieListView.SelectedIndexChanged += new System.EventHandler(this.MovieListView_SelectedIndexChanged);
             // 
             // addMovieButton
             // 
@@ -611,7 +595,7 @@
             this.imagePathLabel.AutoSize = true;
             this.imagePathLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.imagePathLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.imagePathLabel.Location = new System.Drawing.Point(168, 146);
+            this.imagePathLabel.Location = new System.Drawing.Point(167, 182);
             this.imagePathLabel.Name = "imagePathLabel";
             this.imagePathLabel.Size = new System.Drawing.Size(61, 13);
             this.imagePathLabel.TabIndex = 82;
@@ -621,7 +605,7 @@
             // 
             this.imageFilePathTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.imageFilePathTextBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.imageFilePathTextBox.Location = new System.Drawing.Point(248, 143);
+            this.imageFilePathTextBox.Location = new System.Drawing.Point(247, 179);
             this.imageFilePathTextBox.Name = "imageFilePathTextBox";
             this.imageFilePathTextBox.Size = new System.Drawing.Size(100, 20);
             this.imageFilePathTextBox.TabIndex = 88;
@@ -631,7 +615,7 @@
             this.movieRatingLabel.AutoSize = true;
             this.movieRatingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.movieRatingLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.movieRatingLabel.Location = new System.Drawing.Point(168, 120);
+            this.movieRatingLabel.Location = new System.Drawing.Point(167, 156);
             this.movieRatingLabel.Name = "movieRatingLabel";
             this.movieRatingLabel.Size = new System.Drawing.Size(38, 13);
             this.movieRatingLabel.TabIndex = 81;
@@ -642,7 +626,7 @@
             this.titleTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.titleTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleTextBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.titleTextBox.Location = new System.Drawing.Point(248, 39);
+            this.titleTextBox.Location = new System.Drawing.Point(247, 75);
             this.titleTextBox.Name = "titleTextBox";
             this.titleTextBox.Size = new System.Drawing.Size(100, 20);
             this.titleTextBox.TabIndex = 84;
@@ -652,7 +636,7 @@
             this.audienceRatingTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.audienceRatingTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.audienceRatingTextBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.audienceRatingTextBox.Location = new System.Drawing.Point(248, 117);
+            this.audienceRatingTextBox.Location = new System.Drawing.Point(247, 153);
             this.audienceRatingTextBox.Name = "audienceRatingTextBox";
             this.audienceRatingTextBox.Size = new System.Drawing.Size(100, 20);
             this.audienceRatingTextBox.TabIndex = 87;
@@ -674,7 +658,7 @@
             this.titleLabel.AutoSize = true;
             this.titleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.titleLabel.Location = new System.Drawing.Point(168, 42);
+            this.titleLabel.Location = new System.Drawing.Point(167, 78);
             this.titleLabel.Name = "titleLabel";
             this.titleLabel.Size = new System.Drawing.Size(27, 13);
             this.titleLabel.TabIndex = 78;
@@ -685,7 +669,7 @@
             this.yearTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.yearTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.yearTextBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.yearTextBox.Location = new System.Drawing.Point(248, 65);
+            this.yearTextBox.Location = new System.Drawing.Point(247, 101);
             this.yearTextBox.Name = "yearTextBox";
             this.yearTextBox.Size = new System.Drawing.Size(100, 20);
             this.yearTextBox.TabIndex = 85;
@@ -695,7 +679,7 @@
             this.yearLabel.AutoSize = true;
             this.yearLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.yearLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.yearLabel.Location = new System.Drawing.Point(168, 68);
+            this.yearLabel.Location = new System.Drawing.Point(167, 104);
             this.yearLabel.Name = "yearLabel";
             this.yearLabel.Size = new System.Drawing.Size(29, 13);
             this.yearLabel.TabIndex = 79;
@@ -706,7 +690,7 @@
             this.lengthLabel.AutoSize = true;
             this.lengthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lengthLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lengthLabel.Location = new System.Drawing.Point(168, 94);
+            this.lengthLabel.Location = new System.Drawing.Point(167, 130);
             this.lengthLabel.Name = "lengthLabel";
             this.lengthLabel.Size = new System.Drawing.Size(40, 13);
             this.lengthLabel.TabIndex = 80;
@@ -717,7 +701,7 @@
             this.lengthTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lengthTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lengthTextBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lengthTextBox.Location = new System.Drawing.Point(248, 91);
+            this.lengthTextBox.Location = new System.Drawing.Point(247, 127);
             this.lengthTextBox.Name = "lengthTextBox";
             this.lengthTextBox.Size = new System.Drawing.Size(100, 20);
             this.lengthTextBox.TabIndex = 86;
@@ -733,13 +717,32 @@
             this.movieLabel.TabIndex = 114;
             this.movieLabel.Text = "Movie";
             // 
+            // genreListBox
+            // 
+            this.genreListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.genreListBox.ForeColor = System.Drawing.SystemColors.Window;
+            this.genreListBox.FormattingEnabled = true;
+            this.genreListBox.Location = new System.Drawing.Point(247, 39);
+            this.genreListBox.Name = "genreListBox";
+            this.genreListBox.Size = new System.Drawing.Size(101, 30);
+            this.genreListBox.TabIndex = 92;
+            // 
+            // genreLabel
+            // 
+            this.genreLabel.AutoSize = true;
+            this.genreLabel.ForeColor = System.Drawing.SystemColors.Window;
+            this.genreLabel.Location = new System.Drawing.Point(169, 39);
+            this.genreLabel.Name = "genreLabel";
+            this.genreLabel.Size = new System.Drawing.Size(36, 13);
+            this.genreLabel.TabIndex = 93;
+            this.genreLabel.Text = "Genre";
+            // 
             // ManagerPortal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(769, 606);
-            this.Controls.Add(this.addButton);
             this.Controls.Add(this.logoutButton);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.clientLabel);
@@ -768,17 +771,12 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button logoutButton;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.ListBox clientListBox;
         private System.Windows.Forms.Label clientLabel;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label ticketSoldMovieLabel;
-        private System.Windows.Forms.ListBox ticketSoldMovieListBox;
         private System.Windows.Forms.Label ticketsSoldShowtimeLabel;
-        private System.Windows.Forms.ListBox ticketSoldShowtimeListBox;
         private System.Windows.Forms.Label ticketsSoldLabel;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button showtimeAddButton;
@@ -786,7 +784,6 @@
         private System.Windows.Forms.Button showtimeDeleteButton;
         private System.Windows.Forms.TextBox ticketPriceTextBox;
         private System.Windows.Forms.Label ticketPriceLabel;
-        private System.Windows.Forms.ListBox showtimeListBox;
         private System.Windows.Forms.TextBox showtimeScreenRoomCodeIDTextBox;
         private System.Windows.Forms.TextBox showtimeIDTextBox;
         private System.Windows.Forms.Label showtimeIDLabel;
@@ -797,7 +794,6 @@
         private System.Windows.Forms.Label dateTimeLabel;
         private System.Windows.Forms.Label showtimeLabel;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.ListBox screeningRoomListBox;
         private System.Windows.Forms.TextBox screeningRoomCodeTextBox;
         private System.Windows.Forms.Label screeningRoomCodeLabel;
         private System.Windows.Forms.TextBox capacityTextBox;
@@ -809,7 +805,6 @@
         private System.Windows.Forms.Button addScreeningRoomButton;
         private System.Windows.Forms.Label screeningRoomLabel;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ListBox movieListBox;
         private System.Windows.Forms.Button addMovieButton;
         private System.Windows.Forms.TextBox movieIDTextBox;
         private System.Windows.Forms.Button editMovieButton;
@@ -826,5 +821,13 @@
         private System.Windows.Forms.Label lengthLabel;
         private System.Windows.Forms.TextBox lengthTextBox;
         private System.Windows.Forms.Label movieLabel;
+        private System.Windows.Forms.ListView clientListView;
+        private System.Windows.Forms.ListView ticketsSoldByMovieListView;
+        private System.Windows.Forms.ListView ticketsSoldByShowtimeListView;
+        private System.Windows.Forms.ListView showtimeListView;
+        private System.Windows.Forms.ListView screeningRoomListView;
+        private System.Windows.Forms.ListView movieListView;
+        private System.Windows.Forms.Label genreLabel;
+        private System.Windows.Forms.ListBox genreListBox;
     }
 }
