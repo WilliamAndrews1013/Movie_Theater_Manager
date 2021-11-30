@@ -350,5 +350,236 @@ namespace Movie_Theater_Manager
                 ticketPriceTextBox.Text = currentShowtime.TicketPrice.ToString("c");
             }
         }
+
+        /// <summary>
+        /// Displays the AddMovie form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddMovieButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            AddMovie movie = new AddMovie();
+
+            movie.Show();
+        }
+
+        /// <summary>
+        /// Deletes a selected movie from the database
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DeleteMovieButton_Click(object sender, EventArgs e)
+        {
+            if (movieListView.SelectedItems.Count > 0)
+            {
+                // Holds selectedMovie
+                string selectedMovie = movieListView.SelectedItems[0].Text;
+
+                // Holds selected movies index in list
+                int index = SearchMovieByName(selectedMovie);
+
+                // Create object filled data with selectedMovie data
+                Movie currentMovie = (Movie)foundMovieList[index];
+
+                // Call DeleteMovie method from DBManager class
+                dbManager.DeleteMovie(currentMovie);
+
+                // Clear movieList and movieListView
+                foundMovieList.Clear();
+                movieListView.Items.Clear();
+
+                // Refresh ListView
+                dbManager.GetMovieFromDB();
+                DisplayMovies();
+                UpdateMovieGenres();
+
+                // Clear TextBox
+                movieIDTextBox.Text = "";
+                titleTextBox.Text = "";
+                yearTextBox.Text = "";
+                lengthTextBox.Text = "";
+                audienceRatingTextBox.Text = "";
+                imageFilePathTextBox.Text = "";
+            }
+        }
+
+        /// <summary>
+        /// Edits movie data and saves it to the database
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EditMovieButton_Click(object sender, EventArgs e)
+        {
+            if (movieListView.SelectedItems.Count > 0)
+            {
+                string selectedMovie = movieListView.SelectedItems[0].Text;
+
+                int index = SearchMovieByName(selectedMovie);
+
+                Movie currentMovie = (Movie)foundMovieList[index];
+
+                if (selectedMovie == currentMovie.Title)
+                {
+                    currentMovie.Title = titleTextBox.Text;
+                    currentMovie.Year = int.Parse(yearTextBox.Text);
+                    currentMovie.Length = lengthTextBox.Text;
+                    currentMovie.AudienceRating = double.Parse(audienceRatingTextBox.Text);
+                    currentMovie.ImageFilePath = imageFilePathTextBox.Text;
+
+                    // Calls EditMovie method from DBManager class
+                    dbManager.EditMovie(currentMovie);
+
+                    // Clears and refreshes foundMovieList and movieListView
+                    foundMovieList.Clear();
+                    movieListView.Items.Clear();
+                    foundMovieList = dbManager.GetMovieFromDB();
+                    DisplayMovies();
+                    UpdateMovieGenres();
+                }
+            }
+        }
+
+        private void AddScreeningRoomButton_Click(object sender, EventArgs e)
+        {
+            // Creates a new ScreeningRoom object and adds data to it
+            ScreeningRoom newScreeningRoom = new ScreeningRoom();
+
+            newScreeningRoom.Code = screeningRoomCodeTextBox.Text;
+            newScreeningRoom.Capacity = int.Parse(capacityTextBox.Text);
+            newScreeningRoom.Description = descriptionTextBox.Text;
+
+            // Calls the AddScreenRoomToDB method from DBManager class
+            dbManager.AddScreenRoomToDB(newScreeningRoom);
+
+            // Clear foundScreeningRoomList and screeningRoomListView and refresh the data
+            foundScreeningRoomList.Clear();
+            screeningRoomListView.Items.Clear();
+            foundScreeningRoomList = dbManager.GetScreeningRoomsFromDB();
+            DisplayScreenignRoom();
+
+            // Clear TextBox
+            screeningRoomCodeTextBox.Text = "";
+            capacityTextBox.Text = "";
+            descriptionTextBox.Text = "";
+        }
+
+        private void EditScreeningRoomButton_Click(object sender, EventArgs e)
+        {
+            if (screeningRoomListView.SelectedItems.Count > 0)
+            {
+                string selectedScreeningRoom = screeningRoomListView.SelectedItems[0].Text;
+
+                int index = SearchScreeningRoomByID(selectedScreeningRoom);
+
+                ScreeningRoom currentScreeningRoom = (ScreeningRoom)foundScreeningRoomList[index];
+
+                if (selectedScreeningRoom == currentScreeningRoom.Code)
+                {
+                    currentScreeningRoom.Capacity = int.Parse(capacityTextBox.Text);
+                    currentScreeningRoom.Description = descriptionTextBox.Text;
+
+                    dbManager.EditScreeningRoom(currentScreeningRoom);
+
+                    foundScreeningRoomList.Clear();
+                    screeningRoomListView.Items.Clear();
+                    foundScreeningRoomList = dbManager.GetScreeningRoomsFromDB();
+                    DisplayScreenignRoom();
+
+                    // Clear TextBox
+                    screeningRoomCodeTextBox.Text = "";
+                    capacityTextBox.Text = "";
+                    descriptionTextBox.Text = "";
+                }
+            }
+        }
+
+        private void DeleteScreeningRoomButton_Click(object sender, EventArgs e)
+        {
+            if (screeningRoomListView.SelectedItems.Count > 0)
+            {
+                string selectedScreeningRoom = screeningRoomListView.SelectedItems[0].Text;
+
+                int index = SearchScreeningRoomByID(selectedScreeningRoom);
+
+                ScreeningRoom currentScreeningRoom = (ScreeningRoom)foundScreeningRoomList[index];
+
+                dbManager.DeleteScreeningRoomFromDB(currentScreeningRoom);
+
+                // Clear foundScreeningRoomList and screeningRoomListView and refreshes the list and listView
+                foundScreeningRoomList.Clear();
+                screeningRoomListView.Items.Clear();
+                foundScreeningRoomList = dbManager.GetScreeningRoomsFromDB();
+                DisplayScreenignRoom();
+
+                // Clear TextBox
+                screeningRoomCodeTextBox.Text = "";
+                capacityTextBox.Text = "";
+                descriptionTextBox.Text = "";
+            }
+        }
+
+        private void ShowtimeAddButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            AddShowtime showtime = new AddShowtime();
+            showtime.Show();
+        }
+
+        private void ShowtimeEditButton_Click(object sender, EventArgs e)
+        {
+            if (showtimeListView.SelectedItems.Count > 0)
+            {
+                string selectedShowtime = showtimeListView.SelectedItems[0].Text;
+
+                int index = SearchShowtimesByID(selectedShowtime);
+
+                Showtime currentShowtime = (Showtime)foundShowtimeList[index];
+
+                if (selectedShowtime == currentShowtime.ID.ToString())
+                {
+                    currentShowtime.DateTime = DateTime.Parse(dateTimeTextBox.Text);
+                    currentShowtime.MovieID = int.Parse(showtimeMovieIDTextBox.Text);
+                    currentShowtime.ScreeningRoomID = showtimeScreenRoomCodeIDTextBox.Text;
+                    currentShowtime.TicketPrice = double.Parse(ticketPriceTextBox.Text);
+
+                    dbManager.EditShowtime(currentShowtime);
+
+                    foundShowtimeList.Clear();
+                    showtimeListView.Items.Clear();
+
+                    showtimeIDTextBox.Text = "";
+                    dateTimeTextBox.Text = "";
+                    showtimeMovieIDTextBox.Text = "";
+                    showtimeScreenRoomCodeIDTextBox.Text = "";
+                    ticketPriceTextBox.Text = "";
+                }
+            }
+        }
+
+        private void ShowtimeDeleteButton_Click(object sender, EventArgs e)
+        {
+            if (showtimeListView.SelectedItems.Count > 0)
+            {
+                string selectedShowtime = showtimeListView.SelectedItems[0].Text;
+
+                int index = SearchShowtimesByID(selectedShowtime);
+
+                Showtime currentShowtime = (Showtime)foundShowtimeList[index];
+
+                dbManager.DeleteShowtimeFromDB(currentShowtime);
+
+                foundShowtimeList.Clear();
+                showtimeListView.Items.Clear();
+
+                showtimeIDTextBox.Text = "";
+                dateTimeTextBox.Text = "";
+                showtimeMovieIDTextBox.Text = "";
+                showtimeScreenRoomCodeIDTextBox.Text = "";
+                ticketPriceTextBox.Text = "";
+            }
+        }
     }
 }

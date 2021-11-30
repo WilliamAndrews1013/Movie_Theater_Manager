@@ -53,7 +53,7 @@ namespace Movie_Theater_Manager
 
                         // Creates new object and displays a new form
                         ClientPortal portal = new ClientPortal();
-                        portal.Show();
+                        portal.ShowDialog();
                     }
                     else
                     {
@@ -81,7 +81,7 @@ namespace Movie_Theater_Manager
 
             // Creates a new object and dispalays a new form
             CreateAccount createAccount = new CreateAccount();
-            createAccount.Show();
+            createAccount.ShowDialog();
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Movie_Theater_Manager
 
             // Creates a new object and displays a new form
             ManagerLogin managerLogin = new ManagerLogin();
-            managerLogin.Show();
+            managerLogin.ShowDialog();
         }
     }
 }

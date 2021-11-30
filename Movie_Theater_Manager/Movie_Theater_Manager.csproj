@@ -120,18 +120,6 @@
     </Compile>
     <Compile Include="DBManager.cs" />
     <Compile Include="E-Ticket.cs" />
-    <Compile Include="EditMovie.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EditMovie.Designer.cs">
-      <DependentUpon>EditMovie.cs</DependentUpon>
-    </Compile>
-    <Compile Include="EditShowtime.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EditShowtime.Designer.cs">
-      <DependentUpon>EditShowtime.cs</DependentUpon>
-    </Compile>
     <Compile Include="Genre.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -168,12 +156,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreateAccount.resx">
       <DependentUpon>CreateAccount.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EditMovie.resx">
-      <DependentUpon>EditMovie.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EditShowtime.resx">
-      <DependentUpon>EditShowtime.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

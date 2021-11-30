@@ -170,6 +170,7 @@
             this.addButton.TabIndex = 151;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = false;
+            this.addButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // cancelButton
             // 
@@ -182,6 +183,7 @@
             this.cancelButton.TabIndex = 150;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = false;
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // movieLabel
             // 
@@ -254,22 +256,21 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox codeComboBox;
         private System.Windows.Forms.Label ticketPriceLabel;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label showtimeMovieIdLabel;
         private System.Windows.Forms.Label dateTimeLabel;
-        private System.Windows.Forms.Label errorlabel4;
-        private System.Windows.Forms.Label errorlabel3;
-        private System.Windows.Forms.Label errorlabel2;
-        private System.Windows.Forms.Label errorlabel1;
-        private System.Windows.Forms.Label errorMessageLabel;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Label movieLabel;
-        private System.Windows.Forms.TextBox dateTextBox;
-        private System.Windows.Forms.TextBox priceTextBox;
-        private System.Windows.Forms.TextBox IDTextBox;
+        public System.Windows.Forms.ComboBox codeComboBox;
+        public System.Windows.Forms.Label errorlabel4;
+        public System.Windows.Forms.Label errorlabel3;
+        public System.Windows.Forms.Label errorlabel2;
+        public System.Windows.Forms.Label errorlabel1;
+        public System.Windows.Forms.Label errorMessageLabel;
+        public System.Windows.Forms.TextBox dateTextBox;
+        public System.Windows.Forms.TextBox priceTextBox;
+        public System.Windows.Forms.TextBox IDTextBox;
     }
 }

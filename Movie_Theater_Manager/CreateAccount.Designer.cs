@@ -138,6 +138,7 @@
             this.cancelButton.TabIndex = 29;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = false;
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // createButton
             // 

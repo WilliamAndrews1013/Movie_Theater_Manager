@@ -67,6 +67,8 @@
             this.addScreeningRoomButton = new System.Windows.Forms.Button();
             this.screeningRoomLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.genreLabel = new System.Windows.Forms.Label();
+            this.genreListBox = new System.Windows.Forms.ListBox();
             this.movieListView = new System.Windows.Forms.ListView();
             this.addMovieButton = new System.Windows.Forms.Button();
             this.movieIDTextBox = new System.Windows.Forms.TextBox();
@@ -84,8 +86,6 @@
             this.lengthLabel = new System.Windows.Forms.Label();
             this.lengthTextBox = new System.Windows.Forms.TextBox();
             this.movieLabel = new System.Windows.Forms.Label();
-            this.genreListBox = new System.Windows.Forms.ListBox();
-            this.genreLabel = new System.Windows.Forms.Label();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -239,6 +239,7 @@
             this.showtimeAddButton.TabIndex = 95;
             this.showtimeAddButton.Text = "Add";
             this.showtimeAddButton.UseVisualStyleBackColor = false;
+            this.showtimeAddButton.Click += new System.EventHandler(this.ShowtimeAddButton_Click);
             // 
             // showtimeEditButton
             // 
@@ -251,6 +252,7 @@
             this.showtimeEditButton.TabIndex = 94;
             this.showtimeEditButton.Text = "Edit";
             this.showtimeEditButton.UseVisualStyleBackColor = false;
+            this.showtimeEditButton.Click += new System.EventHandler(this.ShowtimeEditButton_Click);
             // 
             // showtimeDeleteButton
             // 
@@ -263,6 +265,7 @@
             this.showtimeDeleteButton.TabIndex = 96;
             this.showtimeDeleteButton.Text = "Delete";
             this.showtimeDeleteButton.UseVisualStyleBackColor = false;
+            this.showtimeDeleteButton.Click += new System.EventHandler(this.ShowtimeDeleteButton_Click);
             // 
             // ticketPriceTextBox
             // 
@@ -295,6 +298,7 @@
             // showtimeIDTextBox
             // 
             this.showtimeIDTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.showtimeIDTextBox.Enabled = false;
             this.showtimeIDTextBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.showtimeIDTextBox.Location = new System.Drawing.Point(239, 5);
             this.showtimeIDTextBox.Name = "showtimeIDTextBox";
@@ -335,6 +339,7 @@
             // dateTimeTextBox
             // 
             this.dateTimeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.dateTimeTextBox.Enabled = false;
             this.dateTimeTextBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.dateTimeTextBox.Location = new System.Drawing.Point(239, 34);
             this.dateTimeTextBox.Name = "dateTimeTextBox";
@@ -405,6 +410,7 @@
             // screeningRoomCodeTextBox
             // 
             this.screeningRoomCodeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.screeningRoomCodeTextBox.Enabled = false;
             this.screeningRoomCodeTextBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.screeningRoomCodeTextBox.Location = new System.Drawing.Point(202, 7);
             this.screeningRoomCodeTextBox.Name = "screeningRoomCodeTextBox";
@@ -464,6 +470,7 @@
             this.deleteScreeningRoomButton.TabIndex = 88;
             this.deleteScreeningRoomButton.Text = "Delete";
             this.deleteScreeningRoomButton.UseVisualStyleBackColor = false;
+            this.deleteScreeningRoomButton.Click += new System.EventHandler(this.DeleteScreeningRoomButton_Click);
             // 
             // editScreeningRoomButton
             // 
@@ -476,6 +483,7 @@
             this.editScreeningRoomButton.TabIndex = 86;
             this.editScreeningRoomButton.Text = "Edit";
             this.editScreeningRoomButton.UseVisualStyleBackColor = false;
+            this.editScreeningRoomButton.Click += new System.EventHandler(this.EditScreeningRoomButton_Click);
             // 
             // descriptionTextBox
             // 
@@ -497,6 +505,7 @@
             this.addScreeningRoomButton.TabIndex = 87;
             this.addScreeningRoomButton.Text = "Add";
             this.addScreeningRoomButton.UseVisualStyleBackColor = false;
+            this.addScreeningRoomButton.Click += new System.EventHandler(this.AddScreeningRoomButton_Click);
             // 
             // screeningRoomLabel
             // 
@@ -535,6 +544,26 @@
             this.panel1.Size = new System.Drawing.Size(359, 244);
             this.panel1.TabIndex = 115;
             // 
+            // genreLabel
+            // 
+            this.genreLabel.AutoSize = true;
+            this.genreLabel.ForeColor = System.Drawing.SystemColors.Window;
+            this.genreLabel.Location = new System.Drawing.Point(169, 39);
+            this.genreLabel.Name = "genreLabel";
+            this.genreLabel.Size = new System.Drawing.Size(36, 13);
+            this.genreLabel.TabIndex = 93;
+            this.genreLabel.Text = "Genre";
+            // 
+            // genreListBox
+            // 
+            this.genreListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.genreListBox.ForeColor = System.Drawing.SystemColors.Window;
+            this.genreListBox.FormattingEnabled = true;
+            this.genreListBox.Location = new System.Drawing.Point(247, 39);
+            this.genreListBox.Name = "genreListBox";
+            this.genreListBox.Size = new System.Drawing.Size(101, 30);
+            this.genreListBox.TabIndex = 92;
+            // 
             // movieListView
             // 
             this.movieListView.HideSelection = false;
@@ -556,10 +585,12 @@
             this.addMovieButton.TabIndex = 76;
             this.addMovieButton.Text = "Add";
             this.addMovieButton.UseVisualStyleBackColor = false;
+            this.addMovieButton.Click += new System.EventHandler(this.AddMovieButton_Click);
             // 
             // movieIDTextBox
             // 
             this.movieIDTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.movieIDTextBox.Enabled = false;
             this.movieIDTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.movieIDTextBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.movieIDTextBox.Location = new System.Drawing.Point(248, 13);
@@ -578,6 +609,7 @@
             this.editMovieButton.TabIndex = 75;
             this.editMovieButton.Text = "Edit";
             this.editMovieButton.UseVisualStyleBackColor = false;
+            this.editMovieButton.Click += new System.EventHandler(this.EditMovieButton_Click);
             // 
             // movieIDLabel
             // 
@@ -652,6 +684,7 @@
             this.deleteMovieButton.TabIndex = 83;
             this.deleteMovieButton.Text = "Delete";
             this.deleteMovieButton.UseVisualStyleBackColor = false;
+            this.deleteMovieButton.Click += new System.EventHandler(this.DeleteMovieButton_Click);
             // 
             // titleLabel
             // 
@@ -716,26 +749,6 @@
             this.movieLabel.Size = new System.Drawing.Size(66, 24);
             this.movieLabel.TabIndex = 114;
             this.movieLabel.Text = "Movie";
-            // 
-            // genreListBox
-            // 
-            this.genreListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.genreListBox.ForeColor = System.Drawing.SystemColors.Window;
-            this.genreListBox.FormattingEnabled = true;
-            this.genreListBox.Location = new System.Drawing.Point(247, 39);
-            this.genreListBox.Name = "genreListBox";
-            this.genreListBox.Size = new System.Drawing.Size(101, 30);
-            this.genreListBox.TabIndex = 92;
-            // 
-            // genreLabel
-            // 
-            this.genreLabel.AutoSize = true;
-            this.genreLabel.ForeColor = System.Drawing.SystemColors.Window;
-            this.genreLabel.Location = new System.Drawing.Point(169, 39);
-            this.genreLabel.Name = "genreLabel";
-            this.genreLabel.Size = new System.Drawing.Size(36, 13);
-            this.genreLabel.TabIndex = 93;
-            this.genreLabel.Text = "Genre";
             // 
             // ManagerPortal
             // 
