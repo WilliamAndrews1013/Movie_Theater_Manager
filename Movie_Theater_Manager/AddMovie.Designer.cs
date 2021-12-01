@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.genreComboBox = new System.Windows.Forms.ComboBox();
             this.errorlabel7 = new System.Windows.Forms.Label();
             this.errorlabel6 = new System.Windows.Forms.Label();
             this.errorlabel5 = new System.Windows.Forms.Label();
@@ -50,17 +49,8 @@
             this.yearLabel = new System.Windows.Forms.Label();
             this.lengthLabel = new System.Windows.Forms.Label();
             this.lengthTextBox = new System.Windows.Forms.TextBox();
+            this.genreTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
-            // genreComboBox
-            // 
-            this.genreComboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.genreComboBox.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.genreComboBox.FormattingEnabled = true;
-            this.genreComboBox.Location = new System.Drawing.Point(99, 60);
-            this.genreComboBox.Name = "genreComboBox";
-            this.genreComboBox.Size = new System.Drawing.Size(203, 21);
-            this.genreComboBox.TabIndex = 139;
             // 
             // errorlabel7
             // 
@@ -157,6 +147,7 @@
             this.addButton.TabIndex = 131;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = false;
+            this.addButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // cancelButton
             // 
@@ -169,6 +160,7 @@
             this.cancelButton.TabIndex = 130;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = false;
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // movieLabel
             // 
@@ -296,13 +288,22 @@
             this.lengthTextBox.Size = new System.Drawing.Size(203, 20);
             this.lengthTextBox.TabIndex = 126;
             // 
+            // genreTextBox
+            // 
+            this.genreTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.genreTextBox.ForeColor = System.Drawing.SystemColors.Window;
+            this.genreTextBox.Location = new System.Drawing.Point(99, 60);
+            this.genreTextBox.Name = "genreTextBox";
+            this.genreTextBox.Size = new System.Drawing.Size(203, 20);
+            this.genreTextBox.TabIndex = 139;
+            // 
             // AddMovie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(326, 277);
-            this.Controls.Add(this.genreComboBox);
+            this.Controls.Add(this.genreTextBox);
             this.Controls.Add(this.errorlabel7);
             this.Controls.Add(this.errorlabel6);
             this.Controls.Add(this.errorlabel5);
@@ -332,28 +333,27 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox genreComboBox;
-        private System.Windows.Forms.Label errorlabel7;
-        private System.Windows.Forms.Label errorlabel6;
-        private System.Windows.Forms.Label errorlabel5;
-        private System.Windows.Forms.Label errorlabel4;
-        private System.Windows.Forms.Label errorlabel3;
-        private System.Windows.Forms.Label errorlabel2;
-        private System.Windows.Forms.Label errorMessageLabel;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Label movieLabel;
         private System.Windows.Forms.Label imagePathLabel;
-        private System.Windows.Forms.TextBox imageFilePathTextBox;
         private System.Windows.Forms.Label movieRatingLabel;
         private System.Windows.Forms.Label genreLabel;
-        private System.Windows.Forms.TextBox titleTextBox;
-        private System.Windows.Forms.TextBox ratingTextBox;
         private System.Windows.Forms.Label titleLabel;
-        private System.Windows.Forms.TextBox yearTextBox;
         private System.Windows.Forms.Label yearLabel;
         private System.Windows.Forms.Label lengthLabel;
-        private System.Windows.Forms.TextBox lengthTextBox;
+        public System.Windows.Forms.TextBox imageFilePathTextBox;
+        public System.Windows.Forms.TextBox titleTextBox;
+        public System.Windows.Forms.TextBox ratingTextBox;
+        public System.Windows.Forms.TextBox yearTextBox;
+        public System.Windows.Forms.TextBox lengthTextBox;
+        public System.Windows.Forms.Label errorlabel7;
+        public System.Windows.Forms.Label errorlabel6;
+        public System.Windows.Forms.Label errorlabel5;
+        public System.Windows.Forms.Label errorlabel4;
+        public System.Windows.Forms.Label errorlabel3;
+        public System.Windows.Forms.Label errorlabel2;
+        public System.Windows.Forms.Label errorMessageLabel;
+        private System.Windows.Forms.TextBox genreTextBox;
     }
 }

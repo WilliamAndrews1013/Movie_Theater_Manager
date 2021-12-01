@@ -114,10 +114,10 @@ namespace Movie_Theater_Manager
             return foundUserAccount;
         }
 
-        public void AddUserAccountToDB()
+        public void AddUserAccountToDB(UserAccount account)
         {
             CreateAccount createAccount = new CreateAccount();
-            UserAccount newUser;
+            
 
             try
             {
@@ -144,7 +144,7 @@ namespace Movie_Theater_Manager
                     userID = ids;
                 }
 
-                //dbConnection.Close();
+                dataReader.Close();
 
                 // Sets biggestNumber to the max number in the userID array
                 int biggestNumber = userID.Max();
@@ -158,43 +158,24 @@ namespace Movie_Theater_Manager
                 // Sets a date format to thisDay
                 string dateFormat = thisDay.ToString("yyyy/MM/dd");
 
-                if (string.IsNullOrEmpty(createAccount.nameTextBox.Text) || string.IsNullOrEmpty(createAccount.usernameTextBox.Text) || string.IsNullOrEmpty(createAccount.emailTextBox.Text) || string.IsNullOrEmpty(createAccount.passwordTextBox.Text))
-                {
-                    // Display error message
-                    createAccount.errorMessageLabel.Visible = true;
-                    createAccount.errorlabel1.Visible = true;
-                    createAccount.errorlabel2.Visible = true;
-                    createAccount.errorlabel3.Visible = true;
-                    createAccount.errorlabel4.Visible = true;
-                }
-                else
-                {
-                    // Creates new UserAccount object and adds data to it
-                    newUser = new UserAccount();
+                account.ID = biggestNumber;
+                account.UserAccountTypeID = 1;
 
-                    newUser.ID = biggestNumber;
-                    newUser.Name = createAccount.nameTextBox.Text;
-                    newUser.Username = createAccount.usernameTextBox.Text;
-                    newUser.Password = createAccount.passwordTextBox.Text;
-                    newUser.Email = createAccount.emailTextBox.Text;
-                    newUser.UserAccountTypeID = 1;
-                    newUser.SignUpDateTime = thisDay;
+                // Holds sqlQUery that needs to be executed
+                sqlQuery = "INSERT INTO user_account VALUES (@UserID, @Name, @Username, @Password, @Email_Address, @Ua_Type_ID, @Signup_Date_Time);";
 
-                    // Holds sqlQUery that needs to be executed
-                    sqlQuery = "INSERT INTO user_account VALUES (@UserID, @Name, @Username, @Password, @Email_Address, @Ua_Type_ID, @Signup_Date_Time);";
+                dbCommand = new MySqlCommand(sqlQuery, dbConnection);
 
-                    dbCommand = new MySqlCommand(sqlQuery, dbConnection);
+                dbCommand.Parameters.AddWithValue("@UserID", account.ID);
+                dbCommand.Parameters.AddWithValue("@Name", account.Name);
+                dbCommand.Parameters.AddWithValue("@Username", account.Username);
+                dbCommand.Parameters.AddWithValue("@Password", account.Password);
+                dbCommand.Parameters.AddWithValue("@Email_Address", account.Email);
+                dbCommand.Parameters.AddWithValue("@Ua_Type_ID", account.UserAccountTypeID);
+                dbCommand.Parameters.AddWithValue("@Signup_Date_Time", dateFormat);
+                dbCommand.Prepare();
 
-                    dbCommand.Parameters.AddWithValue("@UserID", newUser.ID);
-                    dbCommand.Parameters.AddWithValue("@Name", newUser.Name);
-                    dbCommand.Parameters.AddWithValue("@Username", newUser.Username);
-                    dbCommand.Parameters.AddWithValue("@Password", newUser.Password);
-                    dbCommand.Parameters.AddWithValue("@Email_Address", newUser.Email);
-                    dbCommand.Parameters.AddWithValue("@Ua_Type_ID", newUser.UserAccountTypeID);
-                    dbCommand.Parameters.AddWithValue("@Signup_Date_Time", dateFormat);
-
-                    dbCommand.ExecuteNonQuery();
-                }
+                dbCommand.ExecuteNonQuery();
 
                 dbConnection.Close();
             }
@@ -239,9 +220,19 @@ namespace Movie_Theater_Manager
                     currentMovie.Year = dataReader.GetInt32(2);
                     currentMovie.Length = dataReader.GetString(3);
                     currentMovie.AudienceRating = dataReader.GetDouble(4);
-                    currentMovie.ImageFilePath = dataReader.GetString(5);
 
-                    
+                    if (dataReader.GetString(5) == "")
+                    {
+                        currentMovie.ImageFilePath = @"images/noimage.png";
+                        foundMovieList.Add(currentMovie);
+                    }
+                    else
+                    {
+                        currentMovie.ImageFilePath = dataReader.GetString(5);
+                        foundMovieList.Add(currentMovie);
+                    }
+
+
 
                     log.Info(currentMovie);
 
@@ -463,6 +454,453 @@ namespace Movie_Theater_Manager
             }
 
             return foundE_Ticket;
+        }
+
+        public void AddMovieToDB(Movie movie, Genre genre)
+        {
+            try
+            {
+                dbConnection.Open();
+
+                string sqlQuery = "SELECT * FROM movie;";
+
+                MySqlCommand dbCommand = new MySqlCommand(sqlQuery, dbConnection);
+
+                MySqlDataReader dataReader = dbCommand.ExecuteReader();
+
+
+                int[] ids = { };
+
+                while (dataReader.Read())
+                {
+                    int[] idNumbers = { dataReader.GetInt32(0) };
+
+                    ids = idNumbers;
+                }
+
+                dataReader.Close();
+
+                int biggestID = ids.Max();
+
+                biggestID++;
+
+                movie.ID = biggestID;
+
+                sqlQuery = "INSERT INTO movie VALUES (@MovieID, @Title, @Year, @Length, @Audience_Rating, @Image_File_Path);";
+
+                dbCommand = new MySqlCommand(sqlQuery, dbConnection);
+
+                dbCommand.Parameters.AddWithValue("@MovieID", movie.ID);
+                dbCommand.Parameters.AddWithValue("@Title", movie.Title);
+                dbCommand.Parameters.AddWithValue("@Year", movie.Year);
+                dbCommand.Parameters.AddWithValue("@Length", movie.Length);
+                dbCommand.Parameters.AddWithValue("@Audience_Rating", movie.AudienceRating);
+                dbCommand.Parameters.AddWithValue("@Image_File_Path", movie.ImageFilePath);
+
+                dbCommand.ExecuteNonQuery();
+
+                sqlQuery = "INSERT INTO jt_genre_movie VALUES (@Genre_ID, @Movie_ID);";
+
+                dbCommand = new MySqlCommand(sqlQuery, dbConnection);
+
+                dbCommand.Parameters.AddWithValue("@Genre_ID", genre.Code);
+                dbCommand.Parameters.AddWithValue("@Movie_ID", movie.ID);
+
+                dbCommand.ExecuteNonQuery();
+
+                dbConnection.Close();
+            }
+            catch (MySqlException ex)
+            {
+                if (dbConnection.State.ToString() == "Open")
+                {
+                    // Close the connection
+                    dbConnection.Close();
+                }
+
+                log.Error(ex.Message);
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void DeleteMovie(Movie movie)
+        {
+            try
+            {
+                dbConnection.Open();
+
+                string sqlQuery = "DELETE FROM movie WHERE MovieID = @MovieID;";
+
+                MySqlCommand dbCommand = new MySqlCommand(sqlQuery, dbConnection);
+
+                dbCommand.Parameters.AddWithValue("@MovieID", movie.ID);
+                dbCommand.Prepare();
+
+                dbCommand.ExecuteNonQuery();
+
+                dbConnection.Close();
+            }
+            catch (MySqlException ex)
+            {
+                if (dbConnection.State.ToString() == "Open")
+                {
+                    dbConnection.Close();
+                }
+
+                log.Error(ex.Message);
+            }
+        }
+
+        public void EditMovie(Movie movie)
+        {
+            try
+            {
+                dbConnection.Open();
+
+                string sqlQuery = "UPDATE movie SET Title = @Title, Year = @Year, Length = @Length, Audience_Rating = @Audience_Rating, Image_File_Path = @Image_File_Path WHERE MovieID = @MovieID";
+
+                MySqlCommand dbCommand = new MySqlCommand(sqlQuery, dbConnection);
+
+                dbCommand.Parameters.AddWithValue("@MovieID", movie.ID);
+                dbCommand.Parameters.AddWithValue("@Title", movie.Title);
+                dbCommand.Parameters.AddWithValue("@Year", movie.Year);
+                dbCommand.Parameters.AddWithValue("@Length", movie.Length);
+                dbCommand.Parameters.AddWithValue("@Audience_Rating", movie.AudienceRating);
+                dbCommand.Parameters.AddWithValue("@Image_File_Path", movie.ImageFilePath);
+                dbCommand.Prepare();
+
+                dbCommand.ExecuteNonQuery();
+
+                dbConnection.Close();
+            }
+            catch (MySqlException ex)
+            {
+                if (dbConnection.State.ToString() == "Open")
+                {
+                    dbConnection.Close();
+                }
+
+                log.Error(ex.Message);
+
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public List<Genre> GetGenresFromDB()
+        {
+            Genre genre;
+            List<Genre> foundGenreList = new List<Genre>();
+
+            try
+            {
+                dbConnection.Open();
+
+                // Holds sql query to execute
+                string sqlQuery = "SELECT * FROM genre;";
+
+                MySqlCommand dbCommand = new MySqlCommand(sqlQuery, dbConnection);
+
+                MySqlDataReader dataRaeder = dbCommand.ExecuteReader();
+
+                while (dataRaeder.Read())
+                {
+                    // Get genre data from db
+                    genre = new Genre();
+
+                    genre.Code = dataRaeder.GetString(0);
+                    genre.Name = dataRaeder.GetString(1);
+                    genre.Description = dataRaeder.GetString(2);
+
+                    foundGenreList.Add(genre);
+                }
+
+                dbConnection.Close();
+            }
+            catch (MySqlException ex)
+            {
+                // Checks dbCOnnection state
+                if (dbConnection.State.ToString() == "Open")
+                {
+                    // If still open, close it
+                    dbConnection.Close();
+                }
+
+                // Logs error message
+                log.Error(ex.Message);
+            }
+
+            return foundGenreList;
+        }
+
+        public void AddScreenRoomToDB(ScreeningRoom screeningRoom)
+        {
+            try
+            {
+                dbConnection.Open();
+
+                string sqlQuery = "INSERT INTO screening_room VALUES (@Code, @Capacity, @Description);";
+
+                MySqlCommand dbCommand = new MySqlCommand(sqlQuery, dbConnection);
+
+                dbCommand.Parameters.AddWithValue("@Code", screeningRoom.Code);
+                dbCommand.Parameters.AddWithValue("@Capacity", screeningRoom.Capacity);
+                dbCommand.Parameters.AddWithValue("@Description", screeningRoom.Description);
+                dbCommand.Prepare();
+
+                dbCommand.ExecuteNonQuery();
+
+                dbConnection.Close();
+            }
+            catch (MySqlException ex)
+            {
+                if (dbConnection.State.ToString() == "Open")
+                {
+                    dbConnection.Close();
+                }
+
+                log.Error(ex.Message);
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void EditScreeningRoom(ScreeningRoom screeningRoom)
+        {
+            try
+            {
+                dbConnection.Open();
+
+                string sqlQuery = "UPDATE screening_room SET Code = @Code, Capacity = @Capacity, Description = @Description;";
+
+                MySqlCommand dbCommand = new MySqlCommand(sqlQuery, dbConnection);
+
+                dbCommand.Parameters.AddWithValue("@Code", screeningRoom.Code);
+                dbCommand.Parameters.AddWithValue("@Capacity", screeningRoom.Capacity);
+                dbCommand.Parameters.AddWithValue("@Description", screeningRoom.Description);
+                dbCommand.Prepare();
+
+                dbCommand.ExecuteNonQuery();
+
+                dbConnection.Close();
+            }
+            catch (MySqlException ex)
+            {
+                if (dbConnection.State.ToString() == "Open")
+                {
+                    dbConnection.Close();
+                }
+
+                log.Error(ex.Message);
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void DeleteScreeningRoomFromDB(ScreeningRoom screeningRoom)
+        {
+            try
+            {
+                dbConnection.Open();
+
+                string sqlQuery = "DELETE FROM screening_room WHERE Code = @Code;";
+
+                MySqlCommand dbCommand = new MySqlCommand(sqlQuery, dbConnection);
+
+                dbCommand.Parameters.AddWithValue("@Code", screeningRoom.Code);
+                dbCommand.Prepare();
+
+                dbCommand.ExecuteNonQuery();
+
+                dbConnection.Close();
+            }
+            catch (MySqlException ex)
+            {
+                if (dbConnection.State.ToString() == "Open")
+                {
+                    dbConnection.Close();
+                }
+
+                log.Error(ex.Message);
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void AddShowtimeToDB(Showtime showtime)
+        {
+            try
+            {
+                dbConnection.Open();
+
+                string sqlQuery = "SELECT * FROM showtime;";
+
+                MySqlCommand dbCommand = new MySqlCommand(sqlQuery, dbConnection);
+
+                MySqlDataReader dataReader = dbCommand.ExecuteReader();
+
+
+                int[] ids = { };
+
+                while (dataReader.Read())
+                {
+                    int[] idNumbers = { dataReader.GetInt32(0) };
+
+                    ids = idNumbers;
+                }
+
+                dataReader.Close();
+
+                int biggestID = ids.Max();
+
+                biggestID++;
+
+                showtime.ID = biggestID;
+                string dateFormat = showtime.DateTime.ToString("yyyy/MM/dd H:mm:ss");
+
+                sqlQuery = "INSERT INTO showtime VALUES (@ShowtimeID, @Date_Time, @Movie_ID, @S_room_code, @Ticket_Price);";
+
+                dbCommand = new MySqlCommand(sqlQuery, dbConnection);
+
+                dbCommand.Parameters.AddWithValue("@ShowtimeID", showtime.ID);
+                dbCommand.Parameters.AddWithValue("@Date_Time", dateFormat);
+                dbCommand.Parameters.AddWithValue("@Movie_ID", showtime.MovieID);
+                dbCommand.Parameters.AddWithValue("@S_room_code", showtime.ScreeningRoomID);
+                dbCommand.Parameters.AddWithValue("@Ticket_Price", showtime.TicketPrice);
+                dbCommand.Prepare();
+
+                dbCommand.ExecuteNonQuery();
+
+                dbConnection.Close();
+            }
+            catch (MySqlException ex)
+            {
+                if (dbConnection.State.ToString() == "Open")
+                {
+                    dbConnection.Close();
+                }
+
+                log.Error(ex.Message);
+
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void EditShowtime(Showtime showtime)
+        {
+            try
+            {
+                dbConnection.Open();
+
+                string sqlQuery = "UPDATE showtime SET ShowtimeID = @ShowtimeID, Date_Time = @Date_Time, Movie_ID = @Movie_ID, S_room_code = @S_room_code, Ticket_Price = @Ticket_Price;";
+
+                MySqlCommand dbCommand = new MySqlCommand(sqlQuery, dbConnection);
+
+                string dateFormat = showtime.DateTime.ToString("yyyy/MM/dd H:mm:ss");
+
+                dbCommand.Parameters.AddWithValue("@ShowtimeID", showtime.ID);
+                dbCommand.Parameters.AddWithValue("@Date_Time", dateFormat);
+                dbCommand.Parameters.AddWithValue("@Movie_ID", showtime.MovieID);
+                dbCommand.Parameters.AddWithValue("@S_room_code", showtime.ScreeningRoomID);
+                dbCommand.Parameters.AddWithValue("@Ticket_Price", showtime.TicketPrice);
+                dbCommand.Prepare();
+
+                dbCommand.ExecuteNonQuery();
+
+                dbConnection.Close();
+            }
+            catch(MySqlException ex)
+            {
+                if (dbConnection.State.ToString() == "Open")
+                {
+                    dbConnection.Close();
+                }
+
+                log.Error(ex.Message);
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void DeleteShowtimeFromDB(Showtime showtime)
+        {
+            try
+            {
+                dbConnection.Open();
+
+                string sqlQuery = "DELETE FROM showtime WHERE ShowtimeID = @ShowtimeID;";
+
+                MySqlCommand dbCommand = new MySqlCommand(sqlQuery, dbConnection);
+
+                dbCommand.Parameters.AddWithValue("@ShowtimeID", showtime.ID);
+                dbCommand.Prepare();
+
+                dbCommand.ExecuteNonQuery();
+
+                dbConnection.Close();
+            }
+            catch (MySqlException ex)
+            {
+                if (dbConnection.State.ToString() == "Open")
+                {
+                    dbConnection.Close();
+                }
+
+                log.Error(ex.Message);
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void AddE_TicketToDB(E_Ticket e_Ticket)
+        {
+            try
+            {
+                dbConnection.Open();
+
+                string sqlQuery = "SELECT * FROM e_ticket;";
+
+                MySqlCommand dbCommand = new MySqlCommand(sqlQuery, dbConnection);
+
+                MySqlDataReader dataReader = dbCommand.ExecuteReader();
+
+                int[] e_ticketID = { };
+
+                while ((dataReader.Read()))
+                 {
+                    // Puts e_ticketID in an array
+                    int[] ids = { dataReader.GetInt32(0) };
+
+                    // Sets ids data in e_ticketID
+                    e_ticketID = ids;
+                }
+
+                dataReader.Close();
+
+                int biggestID = e_ticketID.Max();
+
+                biggestID++;
+
+                e_Ticket.ID = biggestID;
+
+                string dateFormat = e_Ticket.PurchaseDate.ToString("yyyy/MM/dd H:mm:ss");
+
+                sqlQuery = "INSERT INTO e_ticket VALUES (@ETicketID, @Purchase_Date_Time, @Showtime_ID, @User_Account_ID);";
+
+                dbCommand.Parameters.AddWithValue("@TicketID", e_Ticket.ID);
+                dbCommand.Parameters.AddWithValue("@Purchase_Date_Time", dateFormat);
+                dbCommand.Parameters.AddWithValue("@Showtime_ID", e_Ticket.ShowtimeID);
+                dbCommand.Parameters.AddWithValue("@User_Account_ID", e_Ticket.UserAccountID);
+                dbCommand.Prepare();
+
+                dbCommand.ExecuteNonQuery();
+
+                dbConnection.Close();
+            }
+            catch (MySqlException ex)
+            {
+                if (dbConnection.State.ToString() == "Open")
+                {
+                    dbConnection.Close();
+                }
+
+                log.Error(ex.Message);
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

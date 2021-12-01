@@ -16,6 +16,8 @@ namespace Movie_Theater_Manager
 
         List<Showtime> showtimes;
         List<Movie> movieList;
+        List<E_Ticket> e_Tickets;
+        List<UserAccount> users;
         public ClientPortal()
         {
             InitializeComponent();
@@ -25,9 +27,12 @@ namespace Movie_Theater_Manager
 
             showtimes = dbManager.GetShowtimesFromDB();
             movieList = dbManager.GetMovieFromDB();
+            e_Tickets = dbManager.GetE_TicketsFromDB();
+            users = dbManager.GetUserFromDB();
 
             DisplayShowtimes();
             UpdateMovieGenres();
+            AddImagesToImageList();
 
             ColumnHeader columnHeader1 = new ColumnHeader();
             columnHeader1.Text = "ID";
@@ -51,6 +56,8 @@ namespace Movie_Theater_Manager
             {
                 ch.Width = -2;
             }
+
+            Console.WriteLine(Login.Username);
         }
 
         private void DisplayShowtimes()
@@ -94,6 +101,29 @@ namespace Movie_Theater_Manager
             return index;
         }
 
+        private int SearchUserByName(string selectedUser)
+        {
+            int index = 0;
+
+            foreach (UserAccount user in users)
+            {
+                if (user.Username == selectedUser)
+                {
+                    index = users.FindIndex(a => a.Username == selectedUser);
+                }
+            }
+
+            return index;
+        }
+
+        private void AddImagesToImageList()
+        {
+            for (int i = 0; i < movieList.Count; i++)
+            {
+                imageList1.Images.Add(Image.FromFile(movieList[i].ImageFilePath));
+            }
+        }
+
         private void ShowtimeListView_SelectedIndexChanged(object sender, EventArgs e)
         {
             // CLears genreListBox
@@ -116,6 +146,7 @@ namespace Movie_Theater_Manager
                 // Displays movie info to client
                 titleDisplayLabel.Text = movieList[movie].Title;
                 lengthDisplayLabel.Text = movieList[movie].Length;
+                pictureBox1.Image = imageList1.Images[movie];
                 for (int i = 0; i < movieList[movie].Genre.Count; i++)
                 {
                     genreListBox.Items.Add(movieList[movie].Genre[i].Name);
@@ -125,18 +156,61 @@ namespace Movie_Theater_Manager
 
         private void BuyTicketButton_Click(object sender, EventArgs e)
         {
+            if (showtimeListView.SelectedItems.Count > 0)
+            {
+                // Holds listView selection
+                string selectedShowtime = showtimeListView.SelectedItems[0].Text;
 
+                // Holds the logged in users username
+                string selectedUser = Login.Username;
+
+                // Gets the showtime index from its ID
+                int index = SearchShowtimeByID(selectedShowtime);
+
+                // Gets the logged in user
+                int userIndex = SearchUserByName(selectedUser);
+
+                // Creats a new showtime object with data from the selected showtime
+                Showtime currentShowtime = (Showtime)showtimes[index];
+
+                UserAccount currentUser = (UserAccount)users[userIndex];
+
+                E_Ticket e_Ticket = new E_Ticket();
+
+                e_Ticket.PurchaseDate = DateTime.Now;
+                e_Ticket.ShowtimeID = currentShowtime.ID;
+                e_Ticket.UserAccountID = currentUser.ID;
+
+                dbManager.AddE_TicketToDB(e_Ticket);
+
+                MessageBox.Show("Thank you for your purchase!");
+            }
         }
 
         private void ViewETicketButton_Click(object sender, EventArgs e)
         {
+            string selectedUser = Login.Username;
 
+            int index = SearchUserByName(selectedUser);
+
+            UserAccount user = (UserAccount)users[index];
+
+            foreach (E_Ticket e_Ticket in e_Tickets)
+            {
+                if (user.ID == e_Ticket.UserAccountID)
+                {
+                    MessageBox.Show(e_Ticket.ID.ToString() + "\n" + e_Ticket.PurchaseDate.ToString() + "\n" + e_Ticket.ShowtimeID.ToString() + "\n" + e_Ticket.UserAccountID.ToString());
+                }
+            }
         }
 
         private void LogoutButton_Click(object sender, EventArgs e)
         {
             // Closes form
             this.Close();
+
+            Login login = new Login();
+            login.Show();
         }
     }
 }

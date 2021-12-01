@@ -202,7 +202,7 @@
             // imageList1
             // 
             this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.ImageSize = new System.Drawing.Size(200, 200);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // ClientPortal

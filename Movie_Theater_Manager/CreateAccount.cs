@@ -30,10 +30,36 @@ namespace Movie_Theater_Manager
         /// <param name="e"></param>
         private void CreateButton_Click(object sender, EventArgs e)
         {
-            dbManager.AddUserAccountToDB();
+            if (string.IsNullOrEmpty(nameTextBox.Text) || string.IsNullOrEmpty(usernameTextBox.Text) || string.IsNullOrEmpty(emailTextBox.Text) || string.IsNullOrEmpty(passwordTextBox.Text))
+            {
+                // Display error message
+                errorMessageLabel.Visible = true;
+                errorlabel1.Visible = true;
+                errorlabel2.Visible = true;
+                errorlabel3.Visible = true;
+                errorlabel4.Visible = true;
+            }
+            else
+            {
+                UserAccount account = new UserAccount();
+                account.Name = nameTextBox.Text;
+                account.Username = usernameTextBox.Text;
+                account.Password = passwordTextBox.Text;
+                account.Email = emailTextBox.Text;
 
-            MessageBox.Show("Account Created Succesfully!");
+                dbManager.AddUserAccountToDB(account);
 
+                MessageBox.Show("Account Created Succesfully!");
+            }
+
+            this.Close();
+
+            Login login = new Login();
+            login.Show();
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
             this.Close();
 
             Login login = new Login();
