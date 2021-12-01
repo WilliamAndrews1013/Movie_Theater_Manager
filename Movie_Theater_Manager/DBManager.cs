@@ -220,9 +220,19 @@ namespace Movie_Theater_Manager
                     currentMovie.Year = dataReader.GetInt32(2);
                     currentMovie.Length = dataReader.GetString(3);
                     currentMovie.AudienceRating = dataReader.GetDouble(4);
-                    currentMovie.ImageFilePath = dataReader.GetString(5);
 
-                    
+                    if (dataReader.GetString(5) == "")
+                    {
+                        currentMovie.ImageFilePath = @"images/noimage.png";
+                        foundMovieList.Add(currentMovie);
+                    }
+                    else
+                    {
+                        currentMovie.ImageFilePath = dataReader.GetString(5);
+                        foundMovieList.Add(currentMovie);
+                    }
+
+
 
                     log.Info(currentMovie);
 
@@ -813,11 +823,68 @@ namespace Movie_Theater_Manager
             {
                 dbConnection.Open();
 
-                string sqlQuery = "DELETE showtime WHERE ShowtimeID = @ShowtimeID;";
+                string sqlQuery = "DELETE FROM showtime WHERE ShowtimeID = @ShowtimeID;";
 
                 MySqlCommand dbCommand = new MySqlCommand(sqlQuery, dbConnection);
 
                 dbCommand.Parameters.AddWithValue("@ShowtimeID", showtime.ID);
+                dbCommand.Prepare();
+
+                dbCommand.ExecuteNonQuery();
+
+                dbConnection.Close();
+            }
+            catch (MySqlException ex)
+            {
+                if (dbConnection.State.ToString() == "Open")
+                {
+                    dbConnection.Close();
+                }
+
+                log.Error(ex.Message);
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public void AddE_TicketToDB(E_Ticket e_Ticket)
+        {
+            try
+            {
+                dbConnection.Open();
+
+                string sqlQuery = "SELECT * FROM e_ticket;";
+
+                MySqlCommand dbCommand = new MySqlCommand(sqlQuery, dbConnection);
+
+                MySqlDataReader dataReader = dbCommand.ExecuteReader();
+
+                int[] e_ticketID = { };
+
+                while ((dataReader.Read()))
+                 {
+                    // Puts e_ticketID in an array
+                    int[] ids = { dataReader.GetInt32(0) };
+
+                    // Sets ids data in e_ticketID
+                    e_ticketID = ids;
+                }
+
+                dataReader.Close();
+
+                int biggestID = e_ticketID.Max();
+
+                biggestID++;
+
+                e_Ticket.ID = biggestID;
+
+                string dateFormat = e_Ticket.PurchaseDate.ToString("yyyy/MM/dd H:mm:ss");
+
+                sqlQuery = "INSERT INTO e_ticket VALUES (@ETicketID, @Purchase_Date_Time, @Showtime_ID, @User_Account_ID);";
+
+                dbCommand.Parameters.AddWithValue("@TicketID", e_Ticket.ID);
+                dbCommand.Parameters.AddWithValue("@Purchase_Date_Time", dateFormat);
+                dbCommand.Parameters.AddWithValue("@Showtime_ID", e_Ticket.ShowtimeID);
+                dbCommand.Parameters.AddWithValue("@User_Account_ID", e_Ticket.UserAccountID);
                 dbCommand.Prepare();
 
                 dbCommand.ExecuteNonQuery();

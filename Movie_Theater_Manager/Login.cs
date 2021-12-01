@@ -25,7 +25,11 @@ namespace Movie_Theater_Manager
 
             // Gets the userAccounts from the database
             userAccounts = dbManager.GetUserFromDB();
+
+            
         }
+
+        public static string Username = "";
 
         /// <summary>
         /// When called, loops through the userAccounts list and make sure the inputed account login info is correct
@@ -48,12 +52,14 @@ namespace Movie_Theater_Manager
                     // Checks if the username and password are in the database
                     if ((user.Username == username) && (user.Password == password))
                     {
+                        Username = username;
+
                         // Hides the form
                         this.Hide();
 
                         // Creates new object and displays a new form
                         ClientPortal portal = new ClientPortal();
-                        portal.ShowDialog();
+                        portal.Show();
                     }
                     else
                     {
@@ -81,7 +87,7 @@ namespace Movie_Theater_Manager
 
             // Creates a new object and dispalays a new form
             CreateAccount createAccount = new CreateAccount();
-            createAccount.ShowDialog();
+            createAccount.Show();
         }
 
         /// <summary>
@@ -96,7 +102,12 @@ namespace Movie_Theater_Manager
 
             // Creates a new object and displays a new form
             ManagerLogin managerLogin = new ManagerLogin();
-            managerLogin.ShowDialog();
+            managerLogin.Show();
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

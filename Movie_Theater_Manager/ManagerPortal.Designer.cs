@@ -103,6 +103,7 @@
             this.logoutButton.TabIndex = 124;
             this.logoutButton.Text = "Logout";
             this.logoutButton.UseVisualStyleBackColor = false;
+            this.logoutButton.Click += new System.EventHandler(this.LogoutButton_Click);
             // 
             // panel5
             // 

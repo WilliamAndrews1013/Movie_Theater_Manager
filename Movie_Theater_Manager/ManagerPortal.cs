@@ -522,7 +522,7 @@ namespace Movie_Theater_Manager
 
         private void ShowtimeAddButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
 
             AddShowtime showtime = new AddShowtime();
             showtime.Show();
@@ -568,11 +568,14 @@ namespace Movie_Theater_Manager
                 int index = SearchShowtimesByID(selectedShowtime);
 
                 Showtime currentShowtime = (Showtime)foundShowtimeList[index];
+                Console.WriteLine(currentShowtime.ID.ToString());
 
                 dbManager.DeleteShowtimeFromDB(currentShowtime);
 
                 foundShowtimeList.Clear();
                 showtimeListView.Items.Clear();
+                foundShowtimeList = dbManager.GetShowtimesFromDB();
+                DisplayShowtimes();
 
                 showtimeIDTextBox.Text = "";
                 dateTimeTextBox.Text = "";
@@ -580,6 +583,14 @@ namespace Movie_Theater_Manager
                 showtimeScreenRoomCodeIDTextBox.Text = "";
                 ticketPriceTextBox.Text = "";
             }
+        }
+
+        private void LogoutButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            Login login = new Login();
+            login.Show();
         }
     }
 }
